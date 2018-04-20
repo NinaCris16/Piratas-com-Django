@@ -1,0 +1,53 @@
+h1 {
+	margin-top: 0;
+        color: gold;
+        text-shadow: 2px 2px black;
+}
+ 
+body {
+	background-image: url(../imgs/fundo-da-ilha-pirata.jpg);
+        background-repeat: no-repeat;
+        background-position: left bottom;
+        background-size: cover;
+        height: 100%;
+        text-align: center;
+        margin: 0% 25%;
+}
+
+html {
+	text-align: center;
+        height: 100%;
+}
+ 
+
+table {
+	margin-left: auto;
+        margin-right: auto;
+        border-collapse: collapse;
+        background: white;
+}
+ 
+caption, p {
+	background-color: rgba(255, 255, 255, .7);
+        font-size: 95%;
+}
+ 
+td, th {
+	padding: 4px 8px;
+}
+ 
+th, #bot {
+       border-top: 1px solid black;
+       border-bottom: 1px solid black;
+       margin-collapse: collapse;
+}
+   
+th {
+       background-color: green;
+       border-color: black;
+}
+ 
+#bot {
+       background-color: orange;
+       border-color: black;
+}

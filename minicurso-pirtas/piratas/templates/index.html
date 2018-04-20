@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!-- usado para carregar os arquivos estáticos que será abordado em seguida -->
+{% load static %}
+    <head>
+        <link rel="icon" href="{% static 'imgs/calice.ico'%}">
+        <title>Gerenciador de Tesouros</title>
+        <meta charset="UTF-8">
+    	<link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css'%}">
+	<script>let valorTotal; let None;</script>
+    </head>
+    <body>
+        <h1>Gerenciador de Tesouros</h1>
+        <table>
+            <caption>Estes são os tesouros acumulados do
+            Barba-Ruiva em suas aventuras</caption>
+            <thead>
+                <tr>
+                    <th>Tesouro</th>
+                    <th>Nome</th>
+                    <th>Valor unitário</th>
+                    <th>Quantidade</th>
+                    <th>Valor total</th> 
+                </tr>
+            </thead>
+	    <tbody>
+		
+	    {% for objTesouro in object_list %}
+		<tr>
+		     <td><img src="{{ MEDIA_URL }}{{ objTesouro.img_tesouro }}"/></td>
+		     <td>{{ objTesouro.nome }}</td>
+		     <td>{{ objTesouro.valor }}</td>
+		     <td>{{ objTesouro.quantidade }}</td>
+		     <td id="{{ objTesouro.nome|escape}}" class="valorTotal">
+			<script> 
+				if({{ objTesouro.valor }}){
+					valorTotal = {{ objTesouro.valor }} * {{ objTesouro.quantidade }};
+				} else {
+					valorTotal = "-";
+				}
+				document.querySelector("#"+"{{ objTesouro.nome }}").innerHTML = valorTotal;
+				console.log(valorTotal);
+			</script>
+		     </td>
+		</tr>
+	    {% endfor %}
+	    </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" id="bot">Total</td>
+                    <td id="bot">
+			<script> 
+				
+			</script>
+		    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <p>Yarr Harr, marujo! Aqui é o temido
+        Barba-Ruiva e você deve me ajudar a
+        contabilizar os espólios das minhas
+        aventuras!
+        </p>
+
+    </body>
+</html>
+
