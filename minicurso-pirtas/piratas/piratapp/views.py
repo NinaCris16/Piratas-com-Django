@@ -2,15 +2,7 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from piratapp.models import Tesouro
-
-class TesouroListView(ListView):
-    
-    model = Tesouro
-    template_name = "index.html"
-
-    def get_queryset(self):
-        return Tesouro.objects.all()
-
+from django.urls.base import reverse, reverse_lazy
 
 # Não funciona ainda
 class TesouroInsert(CreateView):
@@ -22,7 +14,8 @@ class TesouroInsert(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(TesouroInsert, self).get_context_data(**kwargs)
-        print(context)
+        context["lista_tesouro"] = Tesouro.objects.all()
+
         return context  
 
     def get_success_url(self):

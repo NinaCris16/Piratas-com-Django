@@ -6,10 +6,17 @@
         <title>Gerenciador de Tesouros</title>
         <meta charset="UTF-8">
     	<link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css'%}">
-	<script>let valorTotal; let None;</script>
+	<script>let valorTotal; let None; let soma=0;</script>
     </head>
     <body>
+	<br>
         <h1>Gerenciador de Tesouros</h1>
+	
+	<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+	    {{ form.as_p }}
+	    <input type="submit" value="Enviar" />
+	</form>
+	<br>
         <table>
             <caption>Estes são os tesouros acumulados do
             Barba-Ruiva em suas aventuras</caption>
@@ -24,20 +31,20 @@
             </thead>
 	    <tbody>
 		
-	    {% for objTesouro in object_list %}
+	    {% for objTesouro in lista_tesouro %}
 		<tr>
 		     <td><img src="{{ MEDIA_URL }}{{ objTesouro.img_tesouro }}"/></td>
 		     <td>{{ objTesouro.nome }}</td>
 		     <td>{{ objTesouro.valor }}</td>
 		     <td>{{ objTesouro.quantidade }}</td>
-		     <td id="{{ objTesouro.nome|escape}}" class="valorTotal">
+		     <td id="id{{ objTesouro.id }}" class="valorTotal">
 			<script> 
 				if({{ objTesouro.valor }}){
 					valorTotal = {{ objTesouro.valor }} * {{ objTesouro.quantidade }};
 				} else {
 					valorTotal = "-";
 				}
-				document.querySelector("#"+"{{ objTesouro.nome }}").innerHTML = valorTotal;
+				document.querySelector("#id"+"{{ objTesouro.id }}").innerHTML = valorTotal;
 				console.log(valorTotal);
 			</script>
 		     </td>
@@ -47,9 +54,15 @@
             <tfoot>
                 <tr>
                     <td colspan="4" id="bot">Total</td>
-                    <td id="bot">
+                    <td id="bot" class="soma">
 			<script> 
-				
+				{% for objTesouro in lista_tesouro %}
+					if({{ objTesouro.valor }}){
+						soma += {{ objTesouro.valor }};
+					}
+				{% endfor %}
+				document.querySelector(".soma").innerHTML = soma;
+				console.log(soma);
 			</script>
 		    </td>
                 </tr>

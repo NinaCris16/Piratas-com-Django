@@ -22,8 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^GerenciadorTesouros$', views.TesouroListView.as_view(), name='GerenciadorTesouros'),
-    url(r'^GerenciadorTesouros/Inserir$', views.TesouroListView.as_view(), name='GerenciadorTesourosInsert'),
+    url(r'^GerenciadorTesouros$', views.TesouroInsert.as_view(), name='GerenciadorTesouros'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
