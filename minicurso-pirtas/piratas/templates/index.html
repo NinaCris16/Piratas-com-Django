@@ -22,7 +22,7 @@
 
 	</div>
 
-	<button id="myBtn">Add tesouro</button><p>
+	<button id="myBtn">Adicionar</button><p>
 
         <table>
             <caption>Estes são os tesouros acumulados do
@@ -34,6 +34,7 @@
                     <th>Valor unitário</th>
                     <th>Quantidade</th>
                     <th>Valor total</th> 
+		    <th>Editar</th>
                 </tr>
             </thead>
 	    <tbody>
@@ -52,10 +53,12 @@
 					valorTotal = "-";
 				}
 				document.querySelector("#id"+"{{ objTesouro.id }}").innerHTML = valorTotal;
-				console.log(valorTotal);
 			</script>
 		     </td>
-		</tr>
+		     <td><form action="{% url 'TesouroDelete' objTesouro.nome %}" method="post">{% csrf_token %}
+	         		<button id="delete">Remover</button>
+	         	</form></td>
+		</tr>	
 	    {% endfor %}
 	    </tbody>
             <tfoot>
@@ -69,9 +72,9 @@
 					}
 				{% endfor %}
 				document.querySelector(".soma").innerHTML = soma;
-				console.log(soma);
 			</script>
 		    </td>
+		    <td id="bot"></td>
                 </tr>
             </tfoot>
         </table>
@@ -82,6 +85,8 @@
         </p>
 	
 	<script>
+		// Update		
+
 		var modal = document.getElementById('myModal');
 		var btn = document.getElementById("myBtn");
 		var span = document.getElementsByClassName("close")[0];
@@ -96,6 +101,7 @@
 			modal.style.display = "none";
 		    }
 		}
+
 	</script>
 	
     </body>

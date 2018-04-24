@@ -28,3 +28,12 @@ class TesouroInsert(CreateView):
             "quantidade" : "Quantidade"
         } 
 
+class TesouroDelete(DeleteView):
+    model = Tesouro
+
+    def get_object(self):
+        return Tesouro.objects.get(nome=self.kwargs["nome"])
+     
+    def get_success_url(self):
+        return reverse_lazy('GerenciadorTesouros')
+
