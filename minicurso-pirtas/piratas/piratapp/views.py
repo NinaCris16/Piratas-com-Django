@@ -28,6 +28,17 @@ class TesouroInsert(CreateView):
             "quantidade" : "Quantidade"
         } 
 
+class TesouroUpdate(UpdateView):
+    model = Tesouro
+    template_name = "index.html"
+    fields=["img_tesouro", "nome", "valor", "quantidade"]
+
+    def get_object(self):
+        return Tesouro.objects.get(nome=self.kwargs["nome"])
+    
+    def get_success_url(self):
+        return reverse('GerenciadorTesouros')
+    
 class TesouroDelete(DeleteView):
     model = Tesouro
 
