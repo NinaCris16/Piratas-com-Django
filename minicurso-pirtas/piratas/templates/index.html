@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- usado para carregar os arquivos estáticos que será abordado em seguida -->
 {% load static %}
     <head>
         <link rel="icon" href="{% static 'imgs/calice.ico'%}">
@@ -9,14 +8,22 @@
 	<script>let valorTotal; let None; let soma=0;</script>
     </head>
     <body>
-	<br>
         <h1>Gerenciador de Tesouros</h1>
-	
-	<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-	    {{ form.as_p }}
-	    <input type="submit" value="Enviar" />
-	</form>
-	<br>
+
+	<div id="myModal" class="modal">
+
+	  <div class="modal-content">
+	    <span class="close">&times;</span>
+		<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+		    {{ form.as_p }}
+		    <input type="submit" value="Adicionar" />
+		</form>
+	  </div>
+
+	</div>
+
+	<button id="myBtn">Add tesouro</button><p>
+
         <table>
             <caption>Estes são os tesouros acumulados do
             Barba-Ruiva em suas aventuras</caption>
@@ -58,7 +65,7 @@
 			<script> 
 				{% for objTesouro in lista_tesouro %}
 					if({{ objTesouro.valor }}){
-						soma += {{ objTesouro.valor }};
+						soma += {{ objTesouro.valor }} * {{ objTesouro.quantidade }};
 					}
 				{% endfor %}
 				document.querySelector(".soma").innerHTML = soma;
@@ -73,7 +80,24 @@
         contabilizar os espólios das minhas
         aventuras!
         </p>
-
+	
+	<script>
+		var modal = document.getElementById('myModal');
+		var btn = document.getElementById("myBtn");
+		var span = document.getElementsByClassName("close")[0];
+		btn.onclick = function() {
+		    modal.style.display = "block";
+		}
+		span.onclick = function() {
+		    modal.style.display = "none";
+		}
+		window.onclick = function(event) {
+		    if (event.target == modal) {
+			modal.style.display = "none";
+		    }
+		}
+	</script>
+	
     </body>
 </html>
 

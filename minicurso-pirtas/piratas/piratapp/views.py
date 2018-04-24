@@ -4,7 +4,6 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from piratapp.models import Tesouro
 from django.urls.base import reverse, reverse_lazy
 
-# Não funciona ainda
 class TesouroInsert(CreateView):
     
     model = Tesouro
@@ -28,3 +27,4 @@ class TesouroInsert(CreateView):
             "valor" : "Valor unitário",
             "quantidade" : "Quantidade"
         } 
+
