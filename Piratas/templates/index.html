@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% load static %}
+    <head>
+        <link rel="icon" href="{% static 'imgs/calice.ico'%}">
+        <title>Gerenciador de Tesouros</title>
+        <meta charset="UTF-8">
+    	<link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css'%}">	
+    </head>
+    <body>
+        <h1>Gerenciador de Tesouros</h1>
+
+	<div id="myModal" class="modal">
+
+	  <div class="modal-content">
+	    <span class="close">&times;</span>
+		<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+		    {{ form.as_p }}
+		    <input type="submit" value="Adicionar" />
+		</form>
+	  </div>
+
+	</div>
+
+	<button id="myBtn">Adicionar</button><p>
+
+        <table>
+            <caption>Estes são os tesouros acumulados do
+            Barba-Ruiva em suas aventuras</caption>
+            <thead>
+                <tr>
+                    <th>Tesouro</th>
+                    <th>Nome</th>
+                    <th>Valor unitário</th>
+                    <th>Quantidade</th>
+                    <th>Valor total</th> 
+		    <th colspan="2">Editar</th>
+                </tr>
+            </thead>
+	    <tbody>
+	    {% for objTesouro in lista_tesouro %}
+		<tr>
+		     <td><img src="{{ objTesouro.img_tesouro.url }}"/></td>
+		     <td>{{ objTesouro.nome }}</td>
+		     <td>{{ objTesouro.valor }}</td>
+		     <td>{{ objTesouro.quantidade }}</td>
+		     <td> {{ objTesouro.total }}</td>
+		     <td><form action="{% url 'TesouroDelete' objTesouro.nome %}" method="post">{% csrf_token %}
+	         		<button id="delete">Remover</button>
+	         	</form></td>
+		     <td><button data-nome="{{ objTesouro.nome }}" class="update">Modificar</button></td>
+		</tr>
+	    {% endfor %}
+	    </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" id="bot">Total</td>
+                    <td id="bot" class="soma">{{preco_total}}</td>
+		    <td colspan="2" id="bot"></td>
+                </tr>
+            </tfoot>
+        </table>
+        <p>Yarr Harr, marujo! Aqui é o temido
+        Barba-Ruiva e você deve me ajudar a
+        contabilizar os espólios das minhas
+        aventuras!
+        </p>
+	<script>
+		
+		function initModal(idModal, idBotao){
+			var modal = document.getElementById(idModal);
+			var btn = document.getElementById(idBotao);
+			var span = document.getElementsByClassName("close")[0];
+		
+			span.addEventListener("click", function() {
+			    modal.style.display = "none";
+			});
+			if(idBotao != ""){
+				btn.onclick = function() {
+				    modal.style.display = "block";
+				}
+			}
+		
+			window.addEventListener("click", function(event) {
+			    if (event.target == modal) {
+				modal.style.display = "none";
+			    }
+			});
+
+		}
+	
+	
+		initModal("myModal", "myBtn");
+	
+		{% if object.id %}
+			document.getElementById("myModal").style.display = "block";
+		
+		{% endif %}
+		var arrBtnUpdate = document.querySelectorAll(".update");
+		for(var i =0 ; i<arrBtnUpdate.length ; i++){	
+			arrBtnUpdate[i].addEventListener("click", function(e) {
+				    var btnTesouro = e.currentTarget;
+				    window.location.href = "{% url 'TesouroUpdate' ''%}"+btnTesouro.dataset.nome;
+				});
+		}
+	
+	</script>
+    </body>
+</html>
+
